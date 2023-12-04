@@ -9,15 +9,18 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        language: [ 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift' ]
+        language: [ 'ruby', 'csharp', 'java-kotlin' ]
         # CodeQL supports [ 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift' ]
     steps:
-      - name: Set FILE_NAME
-        env:
-          LANGUAGE: '${{ matrix.language }}'
-          FORMAT1: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '${{ matrix.language }}' }}"
-          FORMAT2: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '$LANGUAGE' }}"
+      - name: Set FILENAME
         run: |
-          echo $FORMAT1
-          echo $FORMAT2
+          if [[ ${{ matrix.language }} == 'java-kotlin' ]]; then
+            echo "FILENAME=java" >> $GITHUB_ENV
+          else
+            echo "FILENAME=${{matrix.language}}" >> $GITHUB_ENV
+          fi
+      - name: Show FILENAME
+        run: echo $FILENAME
+
+          
   
