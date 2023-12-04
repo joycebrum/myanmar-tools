@@ -16,7 +16,7 @@ jobs:
         env:
           LANGUAGE: '${{ matrix.language }}'
           FORMAT1: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '${{ matrix.language }}' }}"
-          FORMAT2: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || $LANGUAGE }}"
+          FORMAT2: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '$LANGUAGE' }}"
         run: |
           echo $FORMAT1
           echo $FORMAT2
