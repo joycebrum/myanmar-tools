@@ -14,6 +14,10 @@ jobs:
     steps:
       - name: Set FILE_NAME
         env:
-          FILE_NAME: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || ${{ matrix.language }} }}"
-        run: echo $FILE_NAME
+          LANGUAGE: '${{ matrix.language }}'
+          FORMAT1: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '${{ matrix.language }}' }}"
+          FORMAT2: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || $LANGUAGE }}"
+        run: |
+          echo $FORMAT1
+          echo $FORMAT2
   
