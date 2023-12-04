@@ -12,10 +12,8 @@ jobs:
         language: [ 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift' ]
         # CodeQL supports [ 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift' ]
     steps:
-      - name: Send Build Notification
+      - name: Set FILE_NAME
         env:
-          FILE_NAME: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || '${{ matrix.language }}' }}"
-        run: |
-          echo FILE_NAME
-          echo $FILE_NAME
+          FILE_NAME: "${{ matrix.language == 'java-kotlin' && 'java' || matrix.language == 'c-cpp' && 'cpp' || ${{ matrix.language }} }}"
+        run: echo $FILE_NAME
   
