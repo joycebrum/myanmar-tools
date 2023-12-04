@@ -42,6 +42,21 @@ jobs:
       with:
         languages: ${{ matrix.language }}
 
+    - name: Build C-Cpp
+      if: matrix.language == 'c-cpp'
+      run: |
+        cd clients/cpp
+        ls
+        cmake CMakeLists.txt
+        make
+        ls
+        
+    - name: Autobuild
+      if: matrix.language == 'java-kotlin'
+      uses: github/codeql-action/autobuild@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
+      with:
+        working-directory: './clients/java'
+
     - name: Autobuild
       if: matrix.language == 'csharp' ||
           matrix.language == 'go'     ||
@@ -50,18 +65,6 @@ jobs:
           matrix.language == 'ruby' ||
           matrix.language == 'swift'
       uses: github/codeql-action/autobuild@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
-
-    - name: Autobuild
-      if: matrix.language == 'c-cpp'
-      uses: github/codeql-action/autobuild@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
-      with:
-        working-directory: './clients/cpp'
-
-    - name: Autobuild
-      if: matrix.language == 'java-kotlin'
-      uses: github/codeql-action/autobuild@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
-      with:
-        working-directory: './clients/java'
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@74483a38d39275f33fcff5f35b679b5ca4a26a99 # v2.22.5
